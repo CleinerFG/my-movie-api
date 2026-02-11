@@ -1,6 +1,7 @@
 spring:
   application:
     name: my-movie-api
+
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
@@ -10,6 +11,8 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+    hibernate:
+      ddl-auto: validate
 
   flyway:
     enabled: true
