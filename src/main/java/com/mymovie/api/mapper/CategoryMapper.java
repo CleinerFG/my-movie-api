@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryMapper {
     public Category toEntity(CategoryRequest dto) {
-        Category category = new Category();
+        var category = new Category();
         updateEntityFromDTO(dto, category);
         return category;
     }
