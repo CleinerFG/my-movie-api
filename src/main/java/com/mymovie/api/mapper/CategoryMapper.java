@@ -23,4 +23,8 @@ public class CategoryMapper {
     public void updateEntityFromDTO(CategoryRequest dto, Category entity) {
         entity.setName(dto.name());
     }
+
+    public void patchEntityFromDTO(CategoryRequest dto, Category entity) {
+        if (dto.name() != null) entity.setName(dto.name());
+    }
 }
