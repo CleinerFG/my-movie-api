@@ -20,14 +20,14 @@ public class CategoryService {
     private final CategoryMapper categoryMapper;
 
     public CategoryResponse create(CategoryRequest dto) {
-        Category category = categoryMapper.toEntity(dto);
-        Category savedCategory = categoryRepository.save(category);
+        var category = categoryMapper.toEntity(dto);
+        var savedCategory = categoryRepository.save(category);
 
         return categoryMapper.toResponseDTO(savedCategory);
     }
 
     public List<CategoryResponse> findAll() {
-        List<Category> categories = categoryRepository.findAll();
+        var categories = categoryRepository.findAll();
 
         return categories.stream()
                 .map(categoryMapper::toResponseDTO)
@@ -47,7 +47,7 @@ public class CategoryService {
 
         return optCategory.map(category->{
             categoryMapper.patchEntityFromDTO(dto, category);
-            Category savedCategory = categoryRepository.save(category);
+            var savedCategory = categoryRepository.save(category);
 
             return categoryMapper.toResponseDTO(savedCategory);
         }).orElseThrow(()-> new ResourceNotFoundException("categoryNotFound"));
