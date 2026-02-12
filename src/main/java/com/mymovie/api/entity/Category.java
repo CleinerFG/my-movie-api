@@ -1,11 +1,12 @@
 package com.mymovie.api.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "category")
 public class Category {
 
