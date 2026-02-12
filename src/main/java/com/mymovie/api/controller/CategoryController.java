@@ -31,8 +31,6 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponse> getById(@PathVariable Long id) {
         CategoryResponse response = categoryService.findById(id);
-        if (response == null) return ResponseEntity.notFound().build();
-
         return ResponseEntity.ok(response);
     }
 
@@ -42,16 +40,12 @@ public class CategoryController {
             @RequestBody CategoryRequest dto
     ) {
         CategoryResponse response = categoryService.updateById(id, dto);
-        if (response == null) return ResponseEntity.notFound().build();
-
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        boolean isDeleted = categoryService.deleteById(id);
-        if (!isDeleted) return ResponseEntity.notFound().build();
-
+        categoryService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

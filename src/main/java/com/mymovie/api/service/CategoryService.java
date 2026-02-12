@@ -3,6 +3,7 @@ package com.mymovie.api.service;
 import com.mymovie.api.dto.request.CategoryRequest;
 import com.mymovie.api.dto.response.CategoryResponse;
 import com.mymovie.api.entity.Category;
+import com.mymovie.api.infra.exception.ResourceNotFoundException;
 import com.mymovie.api.mapper.CategoryMapper;
 import com.mymovie.api.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class CategoryService {
 
         return optCategory
                 .map(categoryMapper::toResponseDTO)
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("categoryNotFound"));
     }
 
     public CategoryResponse updateById(Long id, CategoryRequest dto) {
@@ -49,13 +50,14 @@ public class CategoryService {
             Category savedCategory = categoryRepository.save(category);
 
             return categoryMapper.toResponseDTO(savedCategory);
-        }).orElse(null);
+        }).orElseThrow(()-> new ResourceNotFoundException("categoryNotFound"));
     }
 
-    public boolean deleteById(Long id) {
-        if (!categoryRepository.existsById(id)) return false;
+    public void deleteById(Long id) {
+        if (!categoryRepository.existsById(id)){
+            throw  new ResourceNotFoundException("categoryNotFound");
+        }
 
         categoryRepository.deleteById(id);
-        return true;
     }
 }
