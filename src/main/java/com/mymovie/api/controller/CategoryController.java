@@ -4,9 +4,9 @@ import com.mymovie.api.dto.request.CategoryRequest;
 import com.mymovie.api.dto.response.CategoryResponse;
 import com.mymovie.api.service.CategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -19,8 +19,14 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<CategoryResponse> create(@RequestBody CategoryRequest dto) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(categoryService.create(dto));
+        CategoryResponse response = categoryService.create(dto);
+
+        var uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(response.id())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(response);
     }
 
     @GetMapping
