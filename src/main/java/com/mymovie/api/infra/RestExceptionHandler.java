@@ -1,5 +1,6 @@
 package com.mymovie.api.infra;
 
+import com.mymovie.api.infra.constant.ExceptionMessages;
 import com.mymovie.api.infra.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -18,7 +19,7 @@ public class RestExceptionHandler {
                 ex.getMessage()
         );
 
-        problemDetail.setTitle("resourceNotFound");
+        problemDetail.setTitle(ExceptionMessages.RESOURCE_NOT_FOUND);
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(problemDetail);

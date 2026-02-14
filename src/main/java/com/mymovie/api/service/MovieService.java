@@ -5,6 +5,7 @@ import com.mymovie.api.dto.response.MovieResponse;
 import com.mymovie.api.entity.Category;
 import com.mymovie.api.entity.Movie;
 import com.mymovie.api.entity.Streaming;
+import com.mymovie.api.infra.constant.ExceptionMessages;
 import com.mymovie.api.infra.exception.ResourceNotFoundException;
 import com.mymovie.api.mapper.MovieMapper;
 import com.mymovie.api.repository.MovieRepository;
@@ -46,7 +47,7 @@ public class MovieService {
 
         return optMovie
                 .map(movieMapper::toResponseDTO)
-                .orElseThrow(() -> new ResourceNotFoundException("movieNotFound"));
+                .orElseThrow(() -> new ResourceNotFoundException(ExceptionMessages.MOVIE_NOT_FOUND));
     }
 
     public MovieResponse updateById(Long id, MovieRequest dto) {
@@ -57,12 +58,12 @@ public class MovieService {
             var savedMovie = movieRepository.save(movie);
 
             return movieMapper.toResponseDTO(savedMovie);
-        }).orElseThrow(() -> new ResourceNotFoundException("movieNotFound"));
+        }).orElseThrow(() -> new ResourceNotFoundException(ExceptionMessages.MOVIE_NOT_FOUND));
     }
 
     public void deleteById(Long id) {
         if (!movieRepository.existsById(id)) {
-            throw new ResourceNotFoundException("movieNotFound");
+            throw new ResourceNotFoundException(ExceptionMessages.MOVIE_NOT_FOUND);
         }
 
         movieRepository.deleteById(id);
