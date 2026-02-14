@@ -9,6 +9,7 @@ import com.mymovie.api.repository.StreamingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,5 +60,11 @@ public class StreamingService {
         }
 
         streamingRepository.deleteById(id);
+    }
+
+    public List<Streaming> findAllEntitiesByIds(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) return Collections.emptyList();
+
+        return streamingRepository.findAllById(ids);
     }
 }

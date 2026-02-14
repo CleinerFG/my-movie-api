@@ -9,6 +9,7 @@ import com.mymovie.api.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,5 +60,11 @@ public class CategoryService {
         }
 
         categoryRepository.deleteById(id);
+    }
+
+    public List<Category> findAllEntitiesByIds(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) return Collections.emptyList();
+
+        return categoryRepository.findAllById(ids);
     }
 }

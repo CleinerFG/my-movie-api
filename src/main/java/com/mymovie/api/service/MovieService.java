@@ -2,7 +2,9 @@ package com.mymovie.api.service;
 
 import com.mymovie.api.dto.request.MovieRequest;
 import com.mymovie.api.dto.response.MovieResponse;
+import com.mymovie.api.entity.Category;
 import com.mymovie.api.entity.Movie;
+import com.mymovie.api.entity.Streaming;
 import com.mymovie.api.infra.exception.ResourceNotFoundException;
 import com.mymovie.api.mapper.MovieMapper;
 import com.mymovie.api.repository.MovieRepository;
@@ -17,10 +19,15 @@ import java.util.Optional;
 public class MovieService {
 
     private final MovieRepository movieRepository;
+    private final CategoryService categoryService;
+    private final StreamingService streamingService;
     private final MovieMapper movieMapper;
 
     public MovieResponse create(MovieRequest dto) {
         var movie = movieMapper.toEntity(dto);
+
+        movie.setCategories(findAllCategoriesByIds(dto.categoryIds()));
+        movie.setStreamings(findAllStreamingsByIds(dto.streamingIds()));
         var savedMovie = movieRepository.save(movie);
 
         return movieMapper.toResponseDTO(savedMovie);
@@ -59,5 +66,13 @@ public class MovieService {
         }
 
         movieRepository.deleteById(id);
+    }
+
+    private List<Category> findAllCategoriesByIds(List<Long> ids) {
+        return categoryService.findAllEntitiesByIds(ids);
+    }
+
+    private List<Streaming> findAllStreamingsByIds(List<Long> ids) {
+        return streamingService.findAllEntitiesByIds(ids);
     }
 }
