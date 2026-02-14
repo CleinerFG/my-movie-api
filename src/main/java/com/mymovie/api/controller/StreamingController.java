@@ -41,7 +41,7 @@ public class StreamingController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StreamingResponse> update(
+    public ResponseEntity<StreamingResponse> updateById(
             @PathVariable Long id,
             @RequestBody StreamingRequest dto
     ) {

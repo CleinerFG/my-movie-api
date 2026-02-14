@@ -41,7 +41,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponse> update(
+    public ResponseEntity<CategoryResponse> updateById(
             @PathVariable Long id,
             @RequestBody CategoryRequest dto
     ) {

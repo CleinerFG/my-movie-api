@@ -41,7 +41,7 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieResponse> update(
+    public ResponseEntity<MovieResponse> updateById(
             @PathVariable Long id,
             @RequestBody MovieRequest dto
     ) {
