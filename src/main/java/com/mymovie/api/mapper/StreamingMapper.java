@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class StreamingMapper {
     public Streaming toEntity(StreamingRequest dto) {
-        var streaming = new Streaming();
-        updateEntityFromDTO(dto, streaming);
-        return streaming;
+        return Streaming.builder()
+                .name(dto.name())
+                .build();
     }
 
     public StreamingResponse toResponseDTO(Streaming entity) {
@@ -18,13 +18,5 @@ public class StreamingMapper {
                 .id(entity.getId())
                 .name(entity.getName())
                 .build();
-    }
-
-    public void updateEntityFromDTO(StreamingRequest dto, Streaming entity) {
-        entity.setName(dto.name());
-    }
-
-    public void patchEntityFromDTO(StreamingRequest dto, Streaming entity) {
-        if (dto.name() != null) entity.setName(dto.name());
     }
 }

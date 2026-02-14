@@ -25,9 +25,9 @@ public class MovieService {
 
     public MovieResponse create(MovieRequest dto) {
         var movie = movieMapper.toEntity(dto);
-
         movie.setCategories(findAllCategoriesByIds(dto.categoryIds()));
         movie.setStreamings(findAllStreamingsByIds(dto.streamingIds()));
+
         var savedMovie = movieRepository.save(movie);
 
         return movieMapper.toResponseDTO(savedMovie);
@@ -53,7 +53,7 @@ public class MovieService {
         Optional<Movie> optMovie = movieRepository.findById(id);
 
         return optMovie.map(movie -> {
-            movieMapper.patchEntityFromDTO(dto, movie);
+            patchUpdate(movie, dto);
             var savedMovie = movieRepository.save(movie);
 
             return movieMapper.toResponseDTO(savedMovie);
@@ -66,6 +66,16 @@ public class MovieService {
         }
 
         movieRepository.deleteById(id);
+    }
+
+    private void patchUpdate(Movie entity, MovieRequest dto) {
+        if (dto.title() != null) entity.setTitle(dto.title());
+        if (dto.description() != null) entity.setDescription(dto.description());
+        if (dto.releaseDate() != null) entity.setReleaseDate(dto.releaseDate());
+        if (dto.rating() != null) entity.setRating(dto.rating());
+        if (dto.categoryIds() != null) entity.setCategories(findAllCategoriesByIds(dto.categoryIds()));
+        if (dto.streamingIds() != null) entity.setStreamings(findAllStreamingsByIds(dto.streamingIds()));
+
     }
 
     private List<Category> findAllCategoriesByIds(List<Long> ids) {

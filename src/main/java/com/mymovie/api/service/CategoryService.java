@@ -47,7 +47,7 @@ public class CategoryService {
         Optional<Category> optCategory = categoryRepository.findById(id);
 
         return optCategory.map(category -> {
-            categoryMapper.patchEntityFromDTO(dto, category);
+            patchUpdate(category, dto);
             var savedCategory = categoryRepository.save(category);
 
             return categoryMapper.toResponseDTO(savedCategory);
@@ -66,5 +66,9 @@ public class CategoryService {
         if (ids == null || ids.isEmpty()) return Collections.emptyList();
 
         return categoryRepository.findAllById(ids);
+    }
+
+    private void patchUpdate(Category entity, CategoryRequest dto) {
+        if (dto.name() != null) entity.setName(dto.name());
     }
 }

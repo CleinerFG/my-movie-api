@@ -47,7 +47,7 @@ public class StreamingService {
         Optional<Streaming> optStreaming = streamingRepository.findById(id);
 
         return optStreaming.map(streaming -> {
-            streamingMapper.patchEntityFromDTO(dto, streaming);
+            patchUpdate(streaming, dto);
             var savedStreaming = streamingRepository.save(streaming);
 
             return streamingMapper.toResponseDTO(savedStreaming);
@@ -66,5 +66,9 @@ public class StreamingService {
         if (ids == null || ids.isEmpty()) return Collections.emptyList();
 
         return streamingRepository.findAllById(ids);
+    }
+
+    private void patchUpdate(Streaming entity, StreamingRequest dto) {
+        if (dto.name() != null) entity.setName(dto.name());
     }
 }
