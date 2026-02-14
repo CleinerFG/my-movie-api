@@ -11,7 +11,8 @@ import java.util.List;
 
 @Entity
 @Builder
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "movie")

@@ -52,17 +52,17 @@ public class MovieService {
     public MovieResponse updateById(Long id, MovieRequest dto) {
         Optional<Movie> optMovie = movieRepository.findById(id);
 
-        return optMovie.map(movie->{
+        return optMovie.map(movie -> {
             movieMapper.patchEntityFromDTO(dto, movie);
             var savedMovie = movieRepository.save(movie);
 
             return movieMapper.toResponseDTO(savedMovie);
-        }).orElseThrow(()-> new ResourceNotFoundException("movieNotFound"));
+        }).orElseThrow(() -> new ResourceNotFoundException("movieNotFound"));
     }
 
     public void deleteById(Long id) {
-        if (!movieRepository.existsById(id)){
-            throw  new ResourceNotFoundException("movieNotFound");
+        if (!movieRepository.existsById(id)) {
+            throw new ResourceNotFoundException("movieNotFound");
         }
 
         movieRepository.deleteById(id);

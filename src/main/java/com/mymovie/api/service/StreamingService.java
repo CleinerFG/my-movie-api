@@ -46,17 +46,17 @@ public class StreamingService {
     public StreamingResponse updateById(Long id, StreamingRequest dto) {
         Optional<Streaming> optStreaming = streamingRepository.findById(id);
 
-        return optStreaming.map(streaming->{
+        return optStreaming.map(streaming -> {
             streamingMapper.patchEntityFromDTO(dto, streaming);
             var savedStreaming = streamingRepository.save(streaming);
 
             return streamingMapper.toResponseDTO(savedStreaming);
-        }).orElseThrow(()-> new ResourceNotFoundException("streamingNotFound"));
+        }).orElseThrow(() -> new ResourceNotFoundException("streamingNotFound"));
     }
 
     public void deleteById(Long id) {
-        if (!streamingRepository.existsById(id)){
-            throw  new ResourceNotFoundException("streamingNotFound");
+        if (!streamingRepository.existsById(id)) {
+            throw new ResourceNotFoundException("streamingNotFound");
         }
 
         streamingRepository.deleteById(id);

@@ -46,17 +46,17 @@ public class CategoryService {
     public CategoryResponse updateById(Long id, CategoryRequest dto) {
         Optional<Category> optCategory = categoryRepository.findById(id);
 
-        return optCategory.map(category->{
+        return optCategory.map(category -> {
             categoryMapper.patchEntityFromDTO(dto, category);
             var savedCategory = categoryRepository.save(category);
 
             return categoryMapper.toResponseDTO(savedCategory);
-        }).orElseThrow(()-> new ResourceNotFoundException("categoryNotFound"));
+        }).orElseThrow(() -> new ResourceNotFoundException("categoryNotFound"));
     }
 
     public void deleteById(Long id) {
-        if (!categoryRepository.existsById(id)){
-            throw  new ResourceNotFoundException("categoryNotFound");
+        if (!categoryRepository.existsById(id)) {
+            throw new ResourceNotFoundException("categoryNotFound");
         }
 
         categoryRepository.deleteById(id);
