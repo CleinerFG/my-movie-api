@@ -34,6 +34,11 @@ public class MovieController {
         return ResponseEntity.ok(movieService.findAll());
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<MovieResponse>> getByCategoryId(@RequestParam Long category) {
+        return ResponseEntity.ok(movieService.findByCategoryId(category));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<MovieResponse> getById(@PathVariable Long id) {
         MovieResponse response = movieService.findById(id);

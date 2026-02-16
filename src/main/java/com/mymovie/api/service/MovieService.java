@@ -42,6 +42,15 @@ public class MovieService {
                 .toList();
     }
 
+
+    public List<MovieResponse> findByCategoryId(Long id) {
+        var movies = movieRepository.findByCategories_Id(id);
+
+        return movies.stream()
+                .map(movieMapper::toResponseDTO)
+                .toList();
+    }
+
     public MovieResponse findById(Long id) {
         Optional<Movie> optMovie = movieRepository.findById(id);
 
