@@ -1,0 +1,31 @@
+package com.mymovie.api.infra.config;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.mymovie.api.entity.User;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import java.time.Instant;
+
+@Component
+public class TokenService {
+
+    @Value("${mymovie.security.jwt.secret}")
+    private String secret;
+
+    @Value("${mymovie.security.jwt.issuer}")
+    private String issuer;
+
+    public String generateToken(User user) {
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+
+        return JWT.create()
+                .withSubject(user.getEmail())
+                .withClaim("id", user.getId())
+                .withExpiresAt(Instant.now().plusSeconds(86400))
+                .withIssuedAt(Instant.now())
+                .withIssuer(issuer)
+                .sign(algorithm);
+    }
+}
