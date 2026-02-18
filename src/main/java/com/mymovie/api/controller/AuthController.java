@@ -1,7 +1,10 @@
 package com.mymovie.api.controller;
 
+import com.mymovie.api.dto.request.LoginRequest;
+import com.mymovie.api.dto.request.LoginResponse;
 import com.mymovie.api.dto.request.UserRequest;
 import com.mymovie.api.dto.response.UserResponse;
+import com.mymovie.api.service.LoginService;
 import com.mymovie.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,10 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final UserService userService;
+    private final LoginService loginService;
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@RequestBody UserRequest dto) {
         UserResponse response = userService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest dto) {
+        LoginResponse response = loginService.authenticate(dto);
+        return ResponseEntity.ok(response);
     }
 }
