@@ -3,6 +3,7 @@ package com.mymovie.api.controller;
 import com.mymovie.api.dto.request.MovieRequest;
 import com.mymovie.api.dto.response.MovieResponse;
 import com.mymovie.api.service.MovieService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class MovieController {
     private final MovieService movieService;
 
     @PostMapping
-    public ResponseEntity<MovieResponse> create(@RequestBody MovieRequest dto) {
+    public ResponseEntity<MovieResponse> create(@Valid @RequestBody MovieRequest dto) {
         MovieResponse response = movieService.create(dto);
 
         var uri = ServletUriComponentsBuilder.fromCurrentRequest()

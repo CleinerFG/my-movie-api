@@ -3,6 +3,7 @@ package com.mymovie.api.controller;
 import com.mymovie.api.dto.request.CategoryRequest;
 import com.mymovie.api.dto.response.CategoryResponse;
 import com.mymovie.api.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<CategoryResponse> create(@RequestBody CategoryRequest dto) {
+    public ResponseEntity<CategoryResponse> create(@Valid @RequestBody CategoryRequest dto) {
         CategoryResponse response = categoryService.create(dto);
 
         var uri = ServletUriComponentsBuilder.fromCurrentRequest()

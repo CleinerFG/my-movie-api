@@ -3,6 +3,7 @@ package com.mymovie.api.controller;
 import com.mymovie.api.dto.request.StreamingRequest;
 import com.mymovie.api.dto.response.StreamingResponse;
 import com.mymovie.api.service.StreamingService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class StreamingController {
     private final StreamingService streamingService;
 
     @PostMapping
-    public ResponseEntity<StreamingResponse> create(@RequestBody StreamingRequest dto) {
+    public ResponseEntity<StreamingResponse> create(@Valid @RequestBody StreamingRequest dto) {
         StreamingResponse response = streamingService.create(dto);
 
         var uri = ServletUriComponentsBuilder.fromCurrentRequest()

@@ -1,4 +1,9 @@
 package com.mymovie.api.dto.request;
 
-public record StreamingRequest(String name) {
+import com.mymovie.api.infra.constant.ValidationMessages;
+import jakarta.validation.constraints.NotEmpty;
+
+public record StreamingRequest(
+        @NotEmpty(message = ValidationMessages.REQUIRED) String name
+) {
 }
