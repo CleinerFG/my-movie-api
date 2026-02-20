@@ -1,7 +1,7 @@
 package com.mymovie.api.service;
 
 import com.mymovie.api.dto.request.LoginRequest;
-import com.mymovie.api.dto.request.LoginResponse;
+import com.mymovie.api.dto.response.LoginResponse;
 import com.mymovie.api.entity.User;
 import com.mymovie.api.infra.config.TokenService;
 import com.mymovie.api.infra.constant.ExceptionMessages;

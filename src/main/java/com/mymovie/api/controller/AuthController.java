@@ -1,8 +1,8 @@
 package com.mymovie.api.controller;
 
 import com.mymovie.api.dto.request.LoginRequest;
-import com.mymovie.api.dto.request.LoginResponse;
 import com.mymovie.api.dto.request.UserRequest;
+import com.mymovie.api.dto.response.LoginResponse;
 import com.mymovie.api.dto.response.UserResponse;
 import com.mymovie.api.service.LoginService;
 import com.mymovie.api.service.UserService;

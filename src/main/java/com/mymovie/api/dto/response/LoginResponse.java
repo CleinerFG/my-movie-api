@@ -1,4 +1,4 @@
-package com.mymovie.api.dto.request;
+package com.mymovie.api.dto.response;
 
 import lombok.Builder;
 
