@@ -1,5 +1,6 @@
 package com.mymovie.api.controller;
 
+import com.mymovie.api.controller.doc.MovieControllerDoc;
 import com.mymovie.api.dto.request.MovieRequest;
 import com.mymovie.api.dto.response.MovieResponse;
 import com.mymovie.api.service.MovieService;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/movies")
-public class MovieController {
+public class MovieController implements MovieControllerDoc {
 
     private final MovieService movieService;
 

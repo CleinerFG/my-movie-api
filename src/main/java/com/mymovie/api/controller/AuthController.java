@@ -1,5 +1,6 @@
 package com.mymovie.api.controller;
 
+import com.mymovie.api.controller.doc.AuthControllerDoc;
 import com.mymovie.api.dto.request.LoginRequest;
 import com.mymovie.api.dto.request.UserRequest;
 import com.mymovie.api.dto.response.LoginResponse;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/auth")
-public class AuthController {
+public class AuthController implements AuthControllerDoc {
 
     private final UserService userService;
     private final LoginService loginService;

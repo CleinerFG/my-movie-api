@@ -1,5 +1,6 @@
 package com.mymovie.api.controller;
 
+import com.mymovie.api.controller.doc.StreamingControllerDoc;
 import com.mymovie.api.dto.request.StreamingRequest;
 import com.mymovie.api.dto.response.StreamingResponse;
 import com.mymovie.api.service.StreamingService;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/streamings")
-public class StreamingController {
+public class StreamingController implements StreamingControllerDoc {
 
     private final StreamingService streamingService;
 

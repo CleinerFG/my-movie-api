@@ -1,5 +1,6 @@
 package com.mymovie.api.controller;
 
+import com.mymovie.api.controller.doc.CategoryControllerDoc;
 import com.mymovie.api.dto.request.CategoryRequest;
 import com.mymovie.api.dto.response.CategoryResponse;
 import com.mymovie.api.service.CategoryService;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/categories")
-public class CategoryController {
+public class CategoryController implements CategoryControllerDoc {
 
     private final CategoryService categoryService;
 
