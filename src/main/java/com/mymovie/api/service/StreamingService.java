@@ -3,7 +3,6 @@ package com.mymovie.api.service;
 import com.mymovie.api.dto.request.StreamingRequest;
 import com.mymovie.api.dto.response.StreamingResponse;
 import com.mymovie.api.entity.Streaming;
-import com.mymovie.api.infra.constant.ExceptionMessages;
 import com.mymovie.api.infra.exception.ResourceNotFoundException;
 import com.mymovie.api.mapper.StreamingMapper;
 import com.mymovie.api.repository.StreamingRepository;
@@ -41,7 +40,7 @@ public class StreamingService {
 
         return optStreaming
                 .map(streamingMapper::toResponseDTO)
-                .orElseThrow(() -> new ResourceNotFoundException(ExceptionMessages.STREAMING_NOT_FOUND));
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     public StreamingResponse updateById(Long id, StreamingRequest dto) {
@@ -52,12 +51,12 @@ public class StreamingService {
             var savedStreaming = streamingRepository.save(streaming);
 
             return streamingMapper.toResponseDTO(savedStreaming);
-        }).orElseThrow(() -> new ResourceNotFoundException(ExceptionMessages.STREAMING_NOT_FOUND));
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 
     public void deleteById(Long id) {
         if (!streamingRepository.existsById(id)) {
-            throw new ResourceNotFoundException(ExceptionMessages.STREAMING_NOT_FOUND);
+            throw new ResourceNotFoundException();
         }
 
         streamingRepository.deleteById(id);

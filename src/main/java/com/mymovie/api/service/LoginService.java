@@ -4,7 +4,6 @@ import com.mymovie.api.dto.request.LoginRequest;
 import com.mymovie.api.dto.response.LoginResponse;
 import com.mymovie.api.entity.User;
 import com.mymovie.api.infra.config.TokenService;
-import com.mymovie.api.infra.constant.ExceptionMessages;
 import com.mymovie.api.infra.exception.UsernameOrPasswordInvalidException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,7 +30,7 @@ public class LoginService {
 
             return LoginResponse.builder().token(token).build();
         } catch (BadCredentialsException e) {
-            throw new UsernameOrPasswordInvalidException(ExceptionMessages.USERNAME_OR_PASSWORD_INVALID);
+            throw new UsernameOrPasswordInvalidException();
         }
 
     }

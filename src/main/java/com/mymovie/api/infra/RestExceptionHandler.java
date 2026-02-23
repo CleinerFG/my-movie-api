@@ -1,10 +1,9 @@
 package com.mymovie.api.infra;
 
 import com.mymovie.api.dto.response.FieldValidationError;
-import com.mymovie.api.infra.constant.ExceptionMessages;
+import com.mymovie.api.infra.constant.AppErrorCode;
 import com.mymovie.api.infra.exception.ResourceNotFoundException;
 import com.mymovie.api.infra.exception.UsernameOrPasswordInvalidException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -19,20 +18,12 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ProblemDetail handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
-        return createProblemDetail(
-                HttpStatus.BAD_REQUEST,
-                ExceptionMessages.MALFORMED_JSON,
-                ex.getMessage()
-        );
+        return buildProblemDetail(AppErrorCode.MALFORMED_JSON);
     }
 
     @ExceptionHandler(UsernameOrPasswordInvalidException.class)
     public ProblemDetail handleUsernameOrPasswordInvalid(UsernameOrPasswordInvalidException ex) {
-        return createProblemDetail(
-                HttpStatus.UNAUTHORIZED,
-                ExceptionMessages.USERNAME_OR_PASSWORD_INVALID,
-                ex.getMessage()
-        );
+        return buildProblemDetail(AppErrorCode.INVALID_CREDENTIALS);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -40,11 +31,7 @@ public class RestExceptionHandler {
 
         List<FieldValidationError> errors = extractFieldValidationErrors(ex);
 
-        var problemDetail = createProblemDetail(
-                HttpStatus.BAD_REQUEST,
-                ExceptionMessages.VALIDATION_FAILED,
-                ExceptionMessages.VALIDATION_FAILED
-        );
+        var problemDetail = buildProblemDetail(AppErrorCode.VALIDATION_FAILED);
 
         problemDetail.setProperty("errors", errors);
         return problemDetail;
@@ -52,16 +39,12 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ProblemDetail handleResourceNotFound(ResourceNotFoundException ex) {
-        return createProblemDetail(
-                HttpStatus.NOT_FOUND,
-                ExceptionMessages.RESOURCE_NOT_FOUND,
-                ex.getMessage()
-        );
+        return buildProblemDetail(AppErrorCode.RESOURCE_NOT_FOUND);
     }
 
-    private ProblemDetail createProblemDetail(HttpStatus status, String title, String detail) {
-        var problemDetail = ProblemDetail.forStatusAndDetail(status, detail);
-        problemDetail.setTitle(title);
+    private ProblemDetail buildProblemDetail(AppErrorCode errorCode) {
+        var problemDetail = ProblemDetail.forStatus(errorCode.getHttpStatus());
+        problemDetail.setTitle(errorCode.name());
         return problemDetail;
     }
 
