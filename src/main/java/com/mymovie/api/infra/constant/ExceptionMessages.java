@@ -5,6 +5,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ExceptionMessages {
 
+    public static final String MALFORMED_JSON = "malformed.json";
     public static final String USERNAME_OR_PASSWORD_INVALID = "auth.username_or_password_invalid";
     public static final String VALIDATION_FAILED = "validation.failed";
     public static final String RESOURCE_NOT_FOUND = "resource.not_found";

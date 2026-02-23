@@ -6,6 +6,7 @@ import com.mymovie.api.infra.exception.ResourceNotFoundException;
 import com.mymovie.api.infra.exception.UsernameOrPasswordInvalidException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +16,15 @@ import java.util.*;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ProblemDetail handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        return createProblemDetail(
+                HttpStatus.BAD_REQUEST,
+                ExceptionMessages.MALFORMED_JSON,
+                ex.getMessage()
+        );
+    }
 
     @ExceptionHandler(UsernameOrPasswordInvalidException.class)
     public ProblemDetail handleUsernameOrPasswordInvalid(UsernameOrPasswordInvalidException ex) {
