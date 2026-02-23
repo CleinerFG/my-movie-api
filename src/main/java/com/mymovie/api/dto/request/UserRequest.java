@@ -1,11 +1,11 @@
 package com.mymovie.api.dto.request;
 
 import com.mymovie.api.infra.constant.ValidationCode;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 public record UserRequest(
-        @NotEmpty(message = ValidationCode.REQUIRED) String name,
-        @NotEmpty(message = ValidationCode.REQUIRED) String email,
-        @NotEmpty(message = ValidationCode.REQUIRED) String password
+        @NotBlank(message = ValidationCode.REQUIRED) String name,
+        @NotBlank(message = ValidationCode.REQUIRED) String email,
+        @NotBlank(message = ValidationCode.REQUIRED) String password
 ) {
 }

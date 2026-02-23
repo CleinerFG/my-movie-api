@@ -1,9 +1,9 @@
 package com.mymovie.api.dto.request;
 
 import com.mymovie.api.infra.constant.ValidationCode;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 public record StreamingRequest(
-        @NotEmpty(message = ValidationCode.REQUIRED) String name
+        @NotBlank(message = ValidationCode.REQUIRED) String name
 ) {
 }
